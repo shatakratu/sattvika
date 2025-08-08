@@ -19,7 +19,7 @@ TEMPLATE = """
     <meta http-equiv="refresh" content="8">
     <style>
         body {
-            background-color: #808080;
+            background-color: #40E0D0;
         }
     </style>
 </head>
