@@ -29,7 +29,7 @@ pipeline {
 
         stage('Trigger GitHub Push') {
             steps {
-                build job: 'sattvika_tag', wait: true, parameters: [
+                build job: 'sattvika-tag', wait: true, parameters: [
                     string(name: 'Build_Number_Image', value: "${BUILD_NUMBER}")
                 ]
             }
