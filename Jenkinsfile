@@ -15,9 +15,14 @@ pipeline {
             }
             steps {
                 script {
-                    sh "docker login -u ${DOCKER_CREDENTIALS_USR} -p ${DOCKER_CREDENTIALS_PSW} 10.1.1.1"
-                    sh "docker tag sattvika/vishva:${BUILD_NUMBER} 10.1.1.1/sattvika/vishva:${BUILD_NUMBER}"
-                    sh "docker push 10.1.1.1/sattvika/vishva:${BUILD_NUMBER}"
+                    // Логинимся в Harbor
+                    sh "docker login -u ${DOCKER_CREDENTIALS_USR} -p ${DOCKER_CREDENTIALS_PSW} 192.168.56.106"
+
+                    // Тегируем образ
+                    sh "docker tag sattvika/vishva:${BUILD_NUMBER} 192.168.56.106/sattvika/vishva:${BUILD_NUMBER}"
+
+                    // Пушим образ
+                    sh "docker push 192.168.56.106/sattvika/vishva:${BUILD_NUMBER}"
                 }
             }
         }
