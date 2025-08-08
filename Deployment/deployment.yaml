@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: sattvika-container
-        image: 192.168.56.106/sattvika/vishva:24
+        image: 192.168.56.106/sattvika/vishva:25
         ports:
         - containerPort: 80
 
