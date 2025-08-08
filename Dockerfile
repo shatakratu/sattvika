@@ -1,4 +1,4 @@
-FROM python:3-slim
+FROM python:3.13.5-alpine
 ENV PYTHONUNBUFFERED=1
 WORKDIR /usr/src/app
 COPY Vishva.py Vishva.py
