@@ -1,0 +1,55 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: rollouts-vishva
+  namespace: vishva
+spec:
+  replicas: 10
+  strategy:
+    canary:
+      dynamicStableScale: true        # ravnomernii scale
+      abortScaleDownDelaySeconds: 600 # plavnoe perekluchenie
+      canaryService: rollouts-canary
+      stableService: rollouts-stable
+      trafficRouting:
+        nginx:
+          stableIngress: rollouts-stable
+      steps:
+        - setWeight: 10
+        - pause: { duration: 20s }
+        - setWeight: 20
+        - pause: { duration: 20s }
+        - setWeight: 30
+        - pause: { duration: 20s }
+        - setWeight: 40
+        - pause: { duration: 20s }
+        - setWeight: 50
+        - pause: { duration: 20s }
+        - setWeight: 60
+        - pause: { duration: 20s }
+        - setWeight: 70
+        - pause: { duration: 20s }
+        - setWeight: 80
+        - pause: { duration: 20s }
+        - setWeight: 90
+        - pause: { duration: 20s }
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: rollouts-vishva
+  template:
+    metadata:
+      labels:
+        app: rollouts-vishva
+    spec:
+      containers:
+      - name: vishva
+        image: shatakratu/vishva:2
+        ports:
+        - name: http
+          containerPort: 5000
+          protocol: TCP
+        resources:
+          requests:
+            memory: 256Mi
+            cpu: 125m
